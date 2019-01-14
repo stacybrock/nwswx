@@ -1,0 +1,6 @@
+__title__ = 'nws_wx_client'
+__description__ = 'Python 3 NOAA NWS Weather Forecast API Client'
+__version__ = '0.0.1'
+__author__ = 'Stacy Brock'
+__license__ = 'Apache 2.0'
+__copyright__ = 'Copyright 2019 Stacy Brock'

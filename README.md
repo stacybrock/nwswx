@@ -1,11 +1,19 @@
 # nws-wx-client
 
-A simple Python 3 client for retrieving data from the [NWS Weather Forecast API](https://forecast-v3.weather.gov/documentation).
+A Python 3 client for retrieving data from the [NWS Weather Forecast API](https://forecast-v3.weather.gov/documentation).
 
 ## Requirements
 
-* Python 3.6+
-* `requirements.txt`
+* Python 3.4+
+* [Requests](http://docs.python-requests.org)
+
+### Package Build Requirements
+
+The full list of packages required to build this module can be found in `requirements.txt`
+
+## Documentation
+
+asdf
 
 ## Examples
 
@@ -39,3 +47,28 @@ Get forecast for a point in JSON-LD format:
 ## Limitations, of Which There Are Many
 
 * Most endpoints remain unimplemented and are on the TODO list.
+
+### TODO Endpoints
+
+* `/stations`
+* `/stations/{stationId}`
+* `/stations/{stationId}/observations`
+* `/stations/{stationId}/observations/current`
+* `/stations/{stationId}/observations/{recordId}`
+* `/products/{productId}`
+* `/products/types`
+* `/products/types/{typeId}`
+* `/products/types/{typeId}/locations`
+* `/products/types/{typeId}/locations/{locationId}`
+* `/products/locations`
+* `/products/locations/{locationId}/types`
+* `/offices/{officeId}`
+* `/zones/{type}/{zoneId}`
+* `/zones/{type}/{zoneId}/forecast`
+* `/alerts?{parameters}`
+* `/alerts/active`
+* `/alerts/{alertId}`
+* `/alerts/active/count`
+* `/alerts/active/zone/{zoneId}`
+* `/alerts/active/area/{area}`
+* `/alerts/active/region/{region}`

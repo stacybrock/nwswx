@@ -23,3 +23,6 @@ var/
 
 # pyenv
 .python-version
+
+# sphinx documentation
+docs/_build/

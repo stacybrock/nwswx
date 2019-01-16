@@ -1,5 +1,5 @@
 __title__ = 'nws_wx_client'
-__description__ = 'Python 3 NOAA NWS Weather Forecast API Client'
+__description__ = 'A Python 3 client for retrieving data from the NWS Weather Forecast API'
 __version__ = '0.0.1'
 __author__ = 'Stacy Brock'
 __license__ = 'Apache 2.0'

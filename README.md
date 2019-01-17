@@ -13,7 +13,7 @@ The full list of packages required to build this module can be found in `require
 
 ## Documentation
 
-asdf
+Full documentation, including examples and an API reference: http://nws-wx-client.readthedocs.io
 
 ## Examples
 
@@ -41,7 +41,12 @@ Get forecast for a point in JSON-LD format:
 >>> nws = nws_wx_client.WxAPI('your@email.com')
 >>> forecast = nws.point_forecast(39.0693, -94.6716, return_format='JSON-LD')
 >>> print(forecast)
-[{'number': 1, 'name': 'Tonight', 'startTime': '2019-01-13T22:00:00-08:00', 'endTime': '2019-01-14T06:00:00-08:00', 'isDaytime': False, 'temperature': 28, 'temperatureUnit': 'F', 'temperatureTrend': None, 'windSpeed': '2 to 6 mph', 'windDirection': 'N', 'icon': 'https://api.weather.gov/icons/land/night/few?size=medium', 'shortForecast': 'Mostly Clear', 'detailedForecast': 'Mostly clear, with a low around 28. North wind 2 to 6 mph.'}, ...
+[{'number': 1, 'name': 'Tonight', 'startTime': '2019-01-13T22:00:00-08:00', 'endTime':
+'2019-01-14T06:00:00-08:00', 'isDaytime': False, 'temperature': 28, 'temperatureUnit':
+'F', 'temperatureTrend': None, 'windSpeed': '2 to 6 mph', 'windDirection': 'N',
+'icon': 'https://api.weather.gov/icons/land/night/few?size=medium', 'shortForecast':
+'Mostly Clear', 'detailedForecast': 'Mostly clear, with a low around 28. North wind 2
+to 6 mph.'}, ...
 ```
 
 ## Limitations, of Which There Are Many

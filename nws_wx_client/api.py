@@ -40,7 +40,7 @@ class WxAPI(NWSWxClient):
     :param useragent_id: identifier to send in useragent, generally
                          an email address
     :param api_host: :emphasis:`optional`, NWS Weather Forecast API host,
-                     defaults to :literal:`api.weather.gov`
+                     defaults to ``api.weather.gov``
     """
 
     @allowed_formats(['geojson', 'json-ld'])
@@ -55,71 +55,71 @@ class WxAPI(NWSWxClient):
 
         :strong:`Gridded Data Dict Keys:`
 
-        * :literal:`updateTime`
-        * :literal:`validTimes`
-        * :literal:`geometry`
-        * :literal:`elevation`
-        * :literal:`forecastOffice`
-        * :literal:`gridId`
-        * :literal:`gridX`
-        * :literal:`gridY`
-        * :literal:`temperature`
-        * :literal:`dewpoint`
-        * :literal:`maxTemperature`
-        * :literal:`minTemperature`
-        * :literal:`relativeHumidity`
-        * :literal:`apparentTemperature`
-        * :literal:`heatIndex`
-        * :literal:`windChill`
-        * :literal:`pressure`
-        * :literal:`skyCover`
-        * :literal:`windDirection`
-        * :literal:`windSpeed`
-        * :literal:`windGust`
-        * :literal:`weather`
-        * :literal:`hazards`
-        * :literal:`probabilityOfPrecipitation`
-        * :literal:`quantitativePrecipitation`
-        * :literal:`iceAccumulation`
-        * :literal:`snowfallAmount`
-        * :literal:`snowLevel`
-        * :literal:`ceilingHeight`
-        * :literal:`visibility`
-        * :literal:`transportWindSpeed`
-        * :literal:`transportWindDirection`
-        * :literal:`mixingHeight`
-        * :literal:`hainesIndex`
-        * :literal:`lightningActivityLevel`
-        * :literal:`twentyFootWindSpeed`
-        * :literal:`twentyFootWindDirection`
-        * :literal:`waveDirection`
-        * :literal:`waveHeight`
-        * :literal:`wavePeriod`
-        * :literal:`wavePeriod2`
-        * :literal:`primarySwellHeight`
-        * :literal:`primarySwellDirection`
-        * :literal:`secondarySwellHeight`
-        * :literal:`secondarySwellDirection`
-        * :literal:`windWaveHeight`
-        * :literal:`dispersionIndex`
-        * :literal:`probabilityOfTropicalStormWinds`
-        * :literal:`probabilityOfHurricaneWinds`
-        * :literal:`potentialOf15mphWinds`
-        * :literal:`potentialOf25mphWinds`
-        * :literal:`potentialOf35mphWinds`
-        * :literal:`potentialOf45mphWinds`
-        * :literal:`potentialOf20mphWindGusts`
-        * :literal:`potentialOf30mphWindGusts`
-        * :literal:`potentialOf40mphWindGusts`
-        * :literal:`potentialOf50mphWindGusts`
-        * :literal:`potentialOf60mphWindGusts`
-        * :literal:`grasslandFireDangerIndex`
-        * :literal:`probabilityOfThunder`
-        * :literal:`davisStabilityIndex`
-        * :literal:`atmosphericDispersionIndex`
-        * :literal:`lowVisibilityOccurrenceRiskIndex`
-        * :literal:`stability`
-        * :literal:`redFlagThreatIndex`
+        * ``updateTime``
+        * ``validTimes``
+        * ``geometry``
+        * ``elevation``
+        * ``forecastOffice``
+        * ``gridId``
+        * ``gridX``
+        * ``gridY``
+        * ``temperature``
+        * ``dewpoint``
+        * ``maxTemperature``
+        * ``minTemperature``
+        * ``relativeHumidity``
+        * ``apparentTemperature``
+        * ``heatIndex``
+        * ``windChill``
+        * ``pressure``
+        * ``skyCover``
+        * ``windDirection``
+        * ``windSpeed``
+        * ``windGust``
+        * ``weather``
+        * ``hazards``
+        * ``probabilityOfPrecipitation``
+        * ``quantitativePrecipitation``
+        * ``iceAccumulation``
+        * ``snowfallAmount``
+        * ``snowLevel``
+        * ``ceilingHeight``
+        * ``visibility``
+        * ``transportWindSpeed``
+        * ``transportWindDirection``
+        * ``mixingHeight``
+        * ``hainesIndex``
+        * ``lightningActivityLevel``
+        * ``twentyFootWindSpeed``
+        * ``twentyFootWindDirection``
+        * ``waveDirection``
+        * ``waveHeight``
+        * ``wavePeriod``
+        * ``wavePeriod2``
+        * ``primarySwellHeight``
+        * ``primarySwellDirection``
+        * ``secondarySwellHeight``
+        * ``secondarySwellDirection``
+        * ``windWaveHeight``
+        * ``dispersionIndex``
+        * ``probabilityOfTropicalStormWinds``
+        * ``probabilityOfHurricaneWinds``
+        * ``potentialOf15mphWinds``
+        * ``potentialOf25mphWinds``
+        * ``potentialOf35mphWinds``
+        * ``potentialOf45mphWinds``
+        * ``potentialOf20mphWindGusts``
+        * ``potentialOf30mphWindGusts``
+        * ``potentialOf40mphWindGusts``
+        * ``potentialOf50mphWindGusts``
+        * ``potentialOf60mphWindGusts``
+        * ``grasslandFireDangerIndex``
+        * ``probabilityOfThunder``
+        * ``davisStabilityIndex``
+        * ``atmosphericDispersionIndex``
+        * ``lowVisibilityOccurrenceRiskIndex``
+        * ``stability``
+        * ``redFlagThreatIndex``
 
         :returns: If format is 'JSON-LD', a dict of gridded data. Otherwise,
                   a string of gridded data in GeoJSON format.
@@ -139,21 +139,21 @@ class WxAPI(NWSWxClient):
 
         :strong:`Point Metadata Dict Keys:`
 
-        * :literal:`geometry`
-        * :literal:`cwa`
-        * :literal:`forecastOffice`
-        * :literal:`gridX`
-        * :literal:`gridY`
-        * :literal:`forecast`
-        * :literal:`forecastHourly`
-        * :literal:`forecastGridData`
-        * :literal:`observationStations`
-        * :literal:`relativeLocation`
-        * :literal:`forecastZone`
-        * :literal:`county`
-        * :literal:`fireWeatherZone`
-        * :literal:`timeZone`
-        * :literal:`radarStation`
+        * ``geometry``
+        * ``cwa``
+        * ``forecastOffice``
+        * ``gridX``
+        * ``gridY``
+        * ``forecast``
+        * ``forecastHourly``
+        * ``forecastGridData``
+        * ``observationStations``
+        * ``relativeLocation``
+        * ``forecastZone``
+        * ``county``
+        * ``fireWeatherZone``
+        * ``timeZone``
+        * ``radarStation``
 
         :returns: If format is 'JSON-LD', a dict of metadata. Otherwise,
                   a string of metadata in GeoJSON format.
@@ -172,19 +172,19 @@ class WxAPI(NWSWxClient):
 
         :strong:`Forecast Dict Keys`:
 
-        * :literal:`number` - sequence number
-        * :literal:`name` - short name for period, eg. 'Today', 'Monday Night'
-        * :literal:`startTime`
-        * :literal:`endTime`
-        * :literal:`isDaytime` - boolean
-        * :literal:`temperature`
-        * :literal:`temperatureUnit` - 'F' or 'C'
-        * :literal:`temperatureTrend`
-        * :literal:`windSpeed`
-        * :literal:`windDirection`
-        * :literal:`icon` - URL to icon image
-        * :literal:`shortForecast` - eg. 'Mostly Clear'
-        * :literal:`detailedForecast`
+        * ``number`` - sequence number
+        * ``name`` - short name for period, eg. 'Today', 'Monday Night'
+        * ``startTime``
+        * ``endTime``
+        * ``isDaytime`` - boolean
+        * ``temperature``
+        * ``temperatureUnit`` - 'F' or 'C'
+        * ``temperatureTrend``
+        * ``windSpeed``
+        * ``windDirection``
+        * ``icon`` - URL to icon image
+        * ``shortForecast`` - eg. 'Mostly Clear'
+        * ``detailedForecast``
 
         :returns: If format is 'JSON-LD', a list of dicts containing
                   forecast data. Otherwise, a string containing forecast
@@ -207,19 +207,19 @@ class WxAPI(NWSWxClient):
 
         :strong:`Forecast Dict Keys`:
 
-        * :literal:`number` - sequence number
-        * :literal:`name` - short name for period, eg. 'Today', 'Monday Night'
-        * :literal:`startTime`
-        * :literal:`endTime`
-        * :literal:`isDaytime` - boolean
-        * :literal:`temperature`
-        * :literal:`temperatureUnit` - 'F' or 'C'
-        * :literal:`temperatureTrend`
-        * :literal:`windSpeed`
-        * :literal:`windDirection`
-        * :literal:`icon` - URL to icon image
-        * :literal:`shortForecast` - eg. 'Mostly Clear'
-        * :literal:`detailedForecast`
+        * ``number`` - sequence number
+        * ``name`` - short name for period, eg. 'Today', 'Monday Night'
+        * ``startTime``
+        * ``endTime``
+        * ``isDaytime`` - boolean
+        * ``temperature``
+        * ``temperatureUnit`` - 'F' or 'C'
+        * ``temperatureTrend``
+        * ``windSpeed``
+        * ``windDirection``
+        * ``icon`` - URL to icon image
+        * ``shortForecast`` - eg. 'Mostly Clear'
+        * ``detailedForecast``
 
         :returns: If format is 'JSON-LD', a list of dicts containing
                   forecast data. Otherwise, a string containing forecast

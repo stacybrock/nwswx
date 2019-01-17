@@ -1,23 +1,12 @@
 """Client wrapper for making requests to the NOAA NWS Wx Forecast API"""
 
 import requests
-import pprint
-pp_ = pprint.PrettyPrinter(indent=2)
-pp = pp_.pprint
 
 from .__version__ import __title__, __version__
-from .utils import is_jsonld
-from .exceptions import InvalidFormat
+from .format_types import formats
+from .exceptions import InvalidFormat, APIError
 
 DEFAULT_API_HOST = 'api.weather.gov'
-ENDPOINT_FORMATS = {
-    'geojson': 'application/geo+json',
-    'json-ld': 'application/ld+json',
-    'dwml': 'application/vnd.noaa.dwml+xml',
-    'oxml': 'application/vnd.noaa.obs+xml',
-    'cap': 'application/cap+xml',
-    'atom': 'application/atom+xml'
-}
 
 class NWSWxClient(object):
     def __init__(self, useragent_id, *, api_host=None):
@@ -39,14 +28,21 @@ class NWSWxClient(object):
                                               self._useragent_id)
         }
         if return_format is not None:
-            if return_format.lower() in ENDPOINT_FORMATS:
-                headers['Accept'] = ENDPOINT_FORMATS[return_format.lower()]
-            else:
-                raise(InvalidFormat("Invalid format provided: "
-                                    "{}".format(return_format)))
+            headers['Accept'] = return_format
 
-        result = requests.get(self._url(endpoint), query, headers=headers)
-        if is_jsonld(return_format):
+        try:
+            result = requests.get(self._url(endpoint), query, headers=headers)
+            result.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            if result.headers['Content-Type'] == 'application/problem+json':
+                problem = result.json()
+                raise(
+                    APIError(problem['detail'])
+                ) from err
+            else:
+                raise
+
+        if return_format == formats.JSONLD:
             return result.json()
         else:
             return result.text

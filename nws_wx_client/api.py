@@ -1,11 +1,8 @@
 import functools
-import pprint
-pp_ = pprint.PrettyPrinter(indent=2)
-pp = pp_.pprint
 
 from .client import NWSWxClient
+from .format_types import formats
 from .exceptions import FormatNotAllowed
-from .utils import is_jsonld
 
 
 def allowed_formats(allowed_formats):
@@ -23,7 +20,7 @@ def allowed_formats(allowed_formats):
         @functools.wraps(func)
         def check_allowed_formats(*args, **kwargs):
             if ('return_format' in kwargs
-                    and kwargs['return_format'].lower() not in allowed_formats):
+                    and kwargs['return_format'] not in allowed_formats):
                 raise FormatNotAllowed(
                     "'{}' format not allowed for this endpoint, expected "
                     "{}".format(kwargs['return_format'], allowed_formats)
@@ -43,7 +40,7 @@ class WxAPI(NWSWxClient):
                      defaults to ``api.weather.gov``
     """
 
-    @allowed_formats(['geojson', 'json-ld'])
+    @allowed_formats([formats.GeoJSON, formats.JSONLD])
     def gridpoint(self, wfo, grid_x, grid_y, *, return_format=None):
         """Retrieves raw gridded data
 
@@ -51,77 +48,81 @@ class WxAPI(NWSWxClient):
                     <https://en.wikipedia.org/wiki/List_of_National_Weather_Service_Weather_Forecast_Offices>`_
         :param grid_x: the grid x coordinate
         :param grid_y: the grid y coordinate
-        :param return_format: :emphasis:`optional`, one of 'GeoJSON', 'JSON-LD'
+        :param return_format: :emphasis:`optional`, one of ``GeoJSON``,
+                              ``JSONLD``
 
         :strong:`Gridded Data Dict Keys:`
 
-        * ``updateTime``
-        * ``validTimes``
-        * ``geometry``
+        * ``@context``
+        * ``@id``
+        * ``@type``
+        * ``apparentTemperature``
+        * ``atmosphericDispersionIndex``
+        * ``ceilingHeight``
+        * ``davisStabilityIndex``
+        * ``dewpoint``
+        * ``dispersionIndex``
         * ``elevation``
         * ``forecastOffice``
+        * ``geometry``
+        * ``grasslandFireDangerIndex``
         * ``gridId``
         * ``gridX``
         * ``gridY``
-        * ``temperature``
-        * ``dewpoint``
+        * ``hainesIndex``
+        * ``hazards``
+        * ``heatIndex``
+        * ``iceAccumulation``
+        * ``lightningActivityLevel``
+        * ``lowVisibilityOccurrenceRiskIndex``
         * ``maxTemperature``
         * ``minTemperature``
-        * ``relativeHumidity``
-        * ``apparentTemperature``
-        * ``heatIndex``
-        * ``windChill``
-        * ``pressure``
-        * ``skyCover``
-        * ``windDirection``
-        * ``windSpeed``
-        * ``windGust``
-        * ``weather``
-        * ``hazards``
-        * ``probabilityOfPrecipitation``
-        * ``quantitativePrecipitation``
-        * ``iceAccumulation``
-        * ``snowfallAmount``
-        * ``snowLevel``
-        * ``ceilingHeight``
-        * ``visibility``
-        * ``transportWindSpeed``
-        * ``transportWindDirection``
         * ``mixingHeight``
-        * ``hainesIndex``
-        * ``lightningActivityLevel``
-        * ``twentyFootWindSpeed``
+        * ``potentialOf15mphWinds``
+        * ``potentialOf20mphWindGusts``
+        * ``potentialOf25mphWinds``
+        * ``potentialOf30mphWindGusts``
+        * ``potentialOf35mphWinds``
+        * ``potentialOf40mphWindGusts``
+        * ``potentialOf45mphWinds``
+        * ``potentialOf50mphWindGusts``
+        * ``potentialOf60mphWindGusts``
+        * ``pressure``
+        * ``primarySwellDirection``
+        * ``primarySwellHeight``
+        * ``probabilityOfHurricaneWinds``
+        * ``probabilityOfPrecipitation``
+        * ``probabilityOfThunder``
+        * ``probabilityOfTropicalStormWinds``
+        * ``quantitativePrecipitation``
+        * ``redFlagThreatIndex``
+        * ``relativeHumidity``
+        * ``secondarySwellDirection``
+        * ``secondarySwellHeight``
+        * ``skyCover``
+        * ``snowLevel``
+        * ``snowfallAmount``
+        * ``stability``
+        * ``temperature``
+        * ``transportWindDirection``
+        * ``transportWindSpeed``
         * ``twentyFootWindDirection``
+        * ``twentyFootWindSpeed``
+        * ``updateTime``
+        * ``validTimes``
+        * ``visibility``
         * ``waveDirection``
         * ``waveHeight``
         * ``wavePeriod``
         * ``wavePeriod2``
-        * ``primarySwellHeight``
-        * ``primarySwellDirection``
-        * ``secondarySwellHeight``
-        * ``secondarySwellDirection``
+        * ``weather``
+        * ``windChill``
+        * ``windDirection``
+        * ``windGust``
+        * ``windSpeed``
         * ``windWaveHeight``
-        * ``dispersionIndex``
-        * ``probabilityOfTropicalStormWinds``
-        * ``probabilityOfHurricaneWinds``
-        * ``potentialOf15mphWinds``
-        * ``potentialOf25mphWinds``
-        * ``potentialOf35mphWinds``
-        * ``potentialOf45mphWinds``
-        * ``potentialOf20mphWindGusts``
-        * ``potentialOf30mphWindGusts``
-        * ``potentialOf40mphWindGusts``
-        * ``potentialOf50mphWindGusts``
-        * ``potentialOf60mphWindGusts``
-        * ``grasslandFireDangerIndex``
-        * ``probabilityOfThunder``
-        * ``davisStabilityIndex``
-        * ``atmosphericDispersionIndex``
-        * ``lowVisibilityOccurrenceRiskIndex``
-        * ``stability``
-        * ``redFlagThreatIndex``
 
-        :returns: If format is 'JSON-LD', a dict of gridded data. Otherwise,
+        :returns: If format is ``JSONLD``, a dict of gridded data. Otherwise,
                   a string of gridded data in GeoJSON format.
         """
         return self._get(
@@ -129,48 +130,65 @@ class WxAPI(NWSWxClient):
             return_format=return_format
         )
 
-    @allowed_formats(['geojson', 'json-ld'])
+    @allowed_formats([formats.GeoJSON, formats.JSONLD])
     def point(self, lat, lon, *, return_format=None):
         """Retrieves metadata about a point
 
         :param lat: latitude, eg. 39.0693
         :param lon: longitude, eg. -94.6716
-        :param return_format: :emphasis:`optional`, one of 'GeoJSON', 'JSON-LD'
+        :param return_format: :emphasis:`optional`, one of ``GeoJSON``,
+                              ``JSONLD``
 
         :strong:`Point Metadata Dict Keys:`
 
-        * ``geometry``
+        * ``@context``
+        * ``@id``
+        * ``@type``
+        * ``county``
         * ``cwa``
+        * ``fireWeatherZone``
+        * ``forecast``
+        * ``forecastGridData``
+        * ``forecastHourly``
         * ``forecastOffice``
+        * ``forecastZone``
+        * ``geometry``
         * ``gridX``
         * ``gridY``
-        * ``forecast``
-        * ``forecastHourly``
-        * ``forecastGridData``
         * ``observationStations``
-        * ``relativeLocation``
-        * ``forecastZone``
-        * ``county``
-        * ``fireWeatherZone``
-        * ``timeZone``
         * ``radarStation``
+        * ``relativeLocation``
+        * ``timeZone``
 
-        :returns: If format is 'JSON-LD', a dict of metadata. Otherwise,
+        :returns: If format is ``JSONLD``, a dict of metadata. Otherwise,
                   a string of metadata in GeoJSON format.
         """
         return self._get("/points/{},{}".format(lat, lon),
                          return_format=return_format)
 
-    @allowed_formats(['geojson', 'json-ld', 'dwml'])
+    @allowed_formats([formats.GeoJSON, formats.JSONLD, formats.DWML])
     def point_forecast(self, lat, lon, *, return_format=None):
         """Retrieves forecast data for a point
 
         :param lat: latitude, eg. 39.0693
         :param lon: longitude, eg. -94.6716
-        :param return_format: :emphasis:`optional`, one of 'GeoJSON',
-                              'JSON-LD', 'DWML'
+        :param return_format: :emphasis:`optional`, one of ``GeoJSON``,
+                              ``JSONLD``, ``DWML``
 
         :strong:`Forecast Dict Keys`:
+
+        * `@`context``
+        * ``elevation``
+        * ``forecastGenerator``
+        * ``generatedAt``
+        * ``geometry``
+        * ``periods`` - a dict of periods (see period keys below)
+        * ``units``
+        * ``updateTime``
+        * ``updated``
+        * ``validTimes``
+
+        :strong:`Period Dict Keys`:
 
         * ``number`` - sequence number
         * ``name`` - short name for period, eg. 'Today', 'Monday Night'
@@ -186,26 +204,36 @@ class WxAPI(NWSWxClient):
         * ``shortForecast`` - eg. 'Mostly Clear'
         * ``detailedForecast``
 
-        :returns: If format is 'JSON-LD', a list of dicts containing
-                  forecast data. Otherwise, a string containing forecast
-                  data in GeoJSON or DWML format.
+        :returns: If format is ``JSONLD``, a dict containing forecast data.
+                  Otherwise, a string containing forecast data in GeoJSON
+                  or DWML format.
         """
-        result = self._get("/points/{},{}/forecast".format(lat, lon),
-                           return_format=return_format)
-        if is_jsonld(return_format):
-            return result['periods']
-        else:
-            return result
+        return self._get("/points/{},{}/forecast".format(lat, lon),
+                         return_format=return_format)
 
-    @allowed_formats(['geojson', 'json-ld'])
+    @allowed_formats([formats.GeoJSON, formats.JSONLD])
     def point_hourly_forecast(self, lat, lon, *, return_format=None):
         """Retrieves hourly forecast data for a point
 
         :param lat: latitude, eg. 39.0693
         :param lon: longitude, eg. -94.6716
-        :param return_format: :emphasis:`optional`, one of 'GeoJSON', 'JSON-LD'
+        :param return_format: :emphasis:`optional`, one of ``GeoJSON``,
+                              ``JSONLD``
 
         :strong:`Forecast Dict Keys`:
+
+        * `@`context``
+        * ``elevation``
+        * ``forecastGenerator``
+        * ``generatedAt``
+        * ``geometry``
+        * ``periods`` - a dict of periods (see period keys below)
+        * ``units``
+        * ``updateTime``
+        * ``updated``
+        * ``validTimes``
+
+        :strong:`Period Dict Keys`:
 
         * ``number`` - sequence number
         * ``name`` - short name for period, eg. 'Today', 'Monday Night'
@@ -221,34 +249,144 @@ class WxAPI(NWSWxClient):
         * ``shortForecast`` - eg. 'Mostly Clear'
         * ``detailedForecast``
 
-        :returns: If format is 'JSON-LD', a list of dicts containing
+        :returns: If format is ``JSONLD``, a list of dicts containing
                   forecast data. Otherwise, a string containing forecast
                   data in GeoJSON format.
 
         .. note:: Very long-term forecast periods do not contain the full
                   set of keys listed above.
         """
-        result = self._get("/points/{},{}/forecast/hourly".format(lat, lon),
-                           return_format=return_format)
-        if is_jsonld(return_format):
-            return result['periods']
-        else:
-            return result
+        return self._get("/points/{},{}/forecast/hourly".format(lat, lon),
+                         return_format=return_format)
 
-    @allowed_formats(['geojson', 'json-ld'])
+    @allowed_formats([formats.GeoJSON, formats.JSONLD])
     def point_stations(self, lat, lon, *, return_format=None):
         """Retrieves stations nearest to a point in order of distance
 
         :param lat: latitude, eg. 39.0693
         :param lon: longitude, eg. -94.6716
-        :param return_format: :emphasis:`optional`, one of 'GeoJSON', 'JSON-LD'
+        :param return_format: :emphasis:`optional`, one of ``GeoJSON`` or
+                              ``JSONLD``
 
-        :returns: If format is 'JSON-LD', a list of station URLs. Otherwise,
+        :returns: If format is ``JSONLD``, a list of station URLs. Otherwise,
                   a string containing forecast data in GeoJSON format.
         """
-        result = self._get("/points/{},{}/stations".format(lat, lon),
-                           return_format=return_format)
-        if is_jsonld(return_format):
-            return result['observationStations']
-        else:
-            return result
+        return self._get("/points/{},{}/stations".format(lat, lon),
+                         return_format=return_format)
+
+    @allowed_formats([formats.JSONLD, formats.ATOM])
+    def alerts(self, params=None, *, return_format=None):
+        """Retrieves a list of alerts, optionally filtered by parameters
+
+        :param params: a dict of parameters
+        :param return_format: :emphasis:`optional`, one of ``JSONLD`` or
+                              ``ATOM``
+
+        :strong:`Filter Parameters:`
+
+        This list is included verbatim from the `NWS Weather Forecast API
+        documentation <https://forecast-v3.weather.gov/documentation>`_.
+
+        * ``active`` - active alerts (1 or 0)
+        * ``start`` - start time (ISO8601DateTime)
+        * ``end`` - end time (ISO8601DateTime)
+        * ``status`` - event status (alert, update, cancel)
+        * ``type`` - event type (list forthcoming)
+        * ``zone_type`` - zone type (land or marine)
+        * ``point`` - point (latitude,longitude)
+        * ``region`` - region code (list forthcoming)
+        * ``state`` - state/marine code (list forthcoming)
+        * ``zone`` - zone ID (forecast or county, list forthcoming)
+        * ``urgency`` - urgency (expected, immediate)
+        * ``severity`` - severity (minor, moderate, severe)
+        * ``certainty`` - certainty (likely, observed)
+        * ``limit`` - limit (an integer)
+
+        :strong:`Examples`::
+
+          import nws_wx_client
+          nws = nws_wx_client.WxAPI('test@email.com')
+          nws.alerts({'point': '39.0693,-94.6716'})
+          nws.alerts({'point': '39.0693,-94.6716'},
+                     return_format=nws_wx_client.formats.JSONLD)
+
+        :returns: If format is ``JSONLD``, a dict of alerts. Otherwise,
+                  a string containing alerts in ATOM format.
+        """
+        if params is None:
+            params = {}
+
+        return self._get('/alerts', query=params, return_format=return_format)
+
+    @allowed_formats([formats.JSONLD, formats.ATOM])
+    def active_alerts(self, params=None, *, return_format=None):
+        """Retrieves a list of active alerts, optionally filtered by
+        parameters
+
+        :param params: a dict of parameters
+        :param return_format: :emphasis:`optional`, one of ``JSONLD`` or
+                              ``ATOM``
+
+        :strong:`Filter Parameters:`
+
+        This list is included verbatim from the `NWS Weather Forecast API
+        documentation <https://forecast-v3.weather.gov/documentation>`_.
+
+        * ``status`` - event status (alert, update, cancel)
+        * ``type`` - event type (list forthcoming)
+        * ``zone_type`` - zone type (land or marine)
+        * ``point`` - point (latitude,longitude)
+        * ``region`` - region code (list forthcoming)
+        * ``state`` - state/marine code (list forthcoming)
+        * ``zone`` - zone ID (forecast or county, list forthcoming)
+        * ``urgency`` - urgency (expected, immediate)
+        * ``severity`` - severity (minor, moderate, severe)
+        * ``certainty`` - certainty (likely, observed)
+        * ``limit`` - limit (an integer)
+
+        :strong:`Examples`::
+
+          import nws_wx_client
+          nws = nws_wx_client.WxAPI('test@email.com')
+          nws.active_alerts({'point': '39.0693,-94.6716'})
+          nws.active_alerts({'point': '39.0693,-94.6716'},
+                            return_format=nws_wx_client.formats.JSONLD)
+
+        :returns: If format is ``JSONLD``, a dict of alerts. Otherwise, a
+                  string containing alerts in ATOM format.
+        """
+        if params is None:
+            params = {}
+
+        return self._get('/alerts/active', query=params,
+                         return_format=return_format)
+
+    @allowed_formats([formats.GeoJSON, formats.JSONLD, formats.CAP])
+    def alert(self, alert_id, *, return_format=None):
+        """Retrieves details for a specific alert
+
+        :param alert_id: an alert ID provided by another endpoint, eg.
+                         ``NWS-IDP-PROD-2202530-2064731``
+        :param return_format: :emphasis:`optional`, one of ``JSONLD``, ``CAP``,
+                              or ``GeoJSON``
+
+        :strong:`Examples`::
+
+          import nws_wx_client
+          nws = nws_wx_client.WxAPI('test@email.com')
+          nws.alert('NWS-IDP-PROD-2202530-2064731')
+          nws.alert('NWS-IDP-PROD-2202530-2064731',
+                    return_format=nws_wx_client.formats.JSONLD)
+
+        :returns: If format is ``JSONLD``, a dict containing the alert details.
+                  If format is ``CAP``, a string containing the alert in CAP
+                  format. Otherwise, a string containing the alert in GeoJSON
+                  format.
+
+        .. note:: GeoJSON is a supported format for this endpoint despite
+                  the `API documentation
+                  <https://forecast-v3.weather.gov/documentation>`_
+                  saying otherwise.
+        """
+        return self._get("/alerts/{}".format(alert_id),
+                         return_format=return_format)

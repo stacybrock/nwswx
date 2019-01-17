@@ -1,4 +1,88 @@
 Examples
 ========
 
-Coming soon.
+Get forecast for a point in GeoJSON format::
+
+  import nws_wx_client
+  nws = nws_wx_client.WxAPI('your@email.com')
+  forecast = nws.point_forecast(39.0693, -94.6716)
+  print(forecast)
+
+Output::
+
+  {
+    "@context": [
+        "https://raw.githubusercontent.com/geojson/geojson-ld/master/contexts/geojson-base.jsonld",
+        {
+            "wx": "https://api.weather.gov/ontology#",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "unit": "http://codes.wmo.int/common/unit/",
+            "@vocab": "https://api.weather.gov/ontology#"
+        }
+    ], ...
+
+Get forecast for a point in JSON-LD format::
+
+  import nws_wx_client
+  nws = nws_wx_client.WxAPI('your@email.com')
+  forecast = nws.point_forecast(39.0693, -94.6716,
+                                return_format=nws_wx_client.formats.JSONLD)
+  print(forecast['periods'])
+
+Output::
+
+  [{'number': 1, 'name': 'Tonight', 'startTime': '2019-01-13T22:00:00-08:00',
+  'endTime': '2019-01-14T06:00:00-08:00', 'isDaytime': False, 'temperature': 28,
+  'temperatureUnit': 'F', 'temperatureTrend': None, 'windSpeed': '2 to 6 mph',
+  'windDirection': 'N', 'icon':
+  'https://api.weather.gov/icons/land/night/few?size=medium', 'shortForecast':
+  'Mostly Clear', 'detailedForecast': 'Mostly clear, with a low around 28. North
+  wind 2 to 6 mph.'}, ...
+
+Get an hourly forecast for a point in JSON-LD format::
+
+  import nws_wx_client
+  nws = nws_wx_client.WxAPI('your@email.com')
+  forecast = nws.point_hourly_forecast(39.0693, -94.6716,
+                                       return_format=nws_wx_client.formats.JSONLD)
+  print(forecast['periods'])
+
+Output::
+
+  [{'number': 1, 'name': '', 'startTime': '2019-01-16T19:00:00-08:00',
+  'endTime': '2019-01-16T20:00:00-08:00', 'isDaytime': False, 'temperature': 42,
+  'temperatureUnit': 'F', 'temperatureTrend': None, 'windSpeed': '10 mph',
+  'windDirection': 'NE', 'icon':
+  'https://api.weather.gov/icons/land/night/rain,90?size=small', 'shortForecast':
+  'Light Rain', 'detailedForecast': ''}, ...
+
+Get active weather alerts for a point in ATOM format::
+
+  import nws_wx_client
+  nws = nws_wx_client.WxAPI('your@email.com')
+  alerts = nws.active_alerts({'point': '39.0693,-94.6716'},
+                             return_format=nws_wx_client.formats.ATOM)
+  print(alerts)
+
+Output::
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <feed xmlns="http://www.w3.org/2005/Atom" xmlns:cap="urn:oasis:names:tc:emergency:cap:1.2">
+  <id>https://api.weather.gov/alerts?point=39.0693%2C-94.6716&amp;active=1&amp;zone=KSZ104%2CKSC209</id>
+  <generator>NWS CAP Server</generator>
+  <updated>2019-01-17T06:04:28+00:00</updated>
+  <author>
+  <name>w-nws.webmaster@noaa.gov</name>
+  </author>
+  <title>current watches, warnings, and advisories for 39.0693 N, 94.6716 W</title>
+  <link rel="self" href="https://api.weather.gov/alerts?point=39.0693%2C-94.6716&amp;active=1&amp;zone=KSZ104%2CKSC209"/>
+  <entry>
+  <id>https://api.weather.gov/alerts/NWS-IDP-PROD-3320294-2901037</id>
+  <link rel="alternate" href="https://api.weather.gov/alerts/NWS-IDP-PROD-3320294-2901037"/>
+  <updated>2019-01-16T14:52:00-06:00</updated>
+  <published>2019-01-16T14:52:00-06:00</published>
+  <author>
+  <name>NWS</name>
+  </author>
+  <title>Winter Weather Advisory issued January 16 at 2:52PM CST expiring January 17 at 9:00AM CST by NWS Kansas City/Pleasant HIll MO</title>
+  ...

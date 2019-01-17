@@ -12,3 +12,6 @@ class InvalidFormat(WxAPIException):
 
 class FormatNotAllowed(WxAPIException):
     """The format provided is not allowed by this endpoint"""
+
+class APIError(WxAPIException):
+    """The API returned an error"""

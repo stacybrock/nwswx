@@ -15,21 +15,21 @@
 import os
 import sys
 
-# Insert path to nws_wx_client module
+# Insert path to nwswx module
 sys.path.insert(0, os.path.abspath('..'))
-import nws_wx_client
+import nwswx
 
 
 # -- Project information -----------------------------------------------------
 
-project = nws_wx_client.__title__
-copyright = '2019, ' + nws_wx_client.__author__
-author = nws_wx_client.__author__
+project = nwswx.__title__
+copyright = '2019, ' + nwswx.__author__
+author = nwswx.__author__
 
 # The short X.Y version
-version = nws_wx_client.__version__
+version = nwswx.__version__
 # The full version, including alpha/beta/rc tags
-release = nws_wx_client.__version__
+release = nwswx.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -116,7 +116,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'nws_wx_clientdoc'
+htmlhelp_basename = 'nwswxdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -143,7 +143,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'nws_wx_client.tex', 'nws\\_wx\\_client Documentation',
+    (master_doc, 'nwswx.tex', 'nwswx Documentation',
      'Stacy Brock', 'manual'),
 ]
 
@@ -153,7 +153,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'nws_wx_client', 'nws_wx_client Documentation',
+    (master_doc, 'nwswx', 'nwswx Documentation',
      [author], 1)
 ]
 
@@ -164,8 +164,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'nws_wx_client', 'nws_wx_client Documentation',
-     author, 'nws_wx_client', 'One line description of project.',
+    (master_doc, 'nwswx', 'nwswx Documentation',
+     author, 'nwswx', 'One line description of project.',
      'Miscellaneous'),
 ]
 

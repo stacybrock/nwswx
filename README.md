@@ -1,4 +1,4 @@
-# nws-wx-client
+# nwswx
 
 A Python 3 client for retrieving data from the [NWS Weather Forecast API](https://forecast-v3.weather.gov/documentation).
 
@@ -13,14 +13,14 @@ The full list of packages required to build this module can be found in `require
 
 ## Documentation
 
-Full documentation, including examples and an API reference: http://nws-wx-client.readthedocs.io
+Full documentation, including examples and an API reference: http://nwswx.readthedocs.io
 
 ## Examples
 
 Get forecast for a point in GeoJSON format:
 ```
->>> import nws_wx_client
->>> nws = nws_wx_client.WxAPI('your@email.com')
+>>> import nwswx
+>>> nws = nwswx.WxAPI('your@email.com')
 >>> forecast = nws.point_forecast(39.0693, -94.6716)
 >>> print(forecast)
 {
@@ -37,9 +37,9 @@ Get forecast for a point in GeoJSON format:
 
 Get forecast for a point in JSON-LD format:
 ```
->>> import nws_wx_client
->>> nws = nws_wx_client.WxAPI('your@email.com')
->>> forecast = nws.point_forecast(39.0693, -94.6716, return_format=nws_wx_client.formats.JSONLD)
+>>> import nwswx
+>>> nws = nwswx.WxAPI('your@email.com')
+>>> forecast = nws.point_forecast(39.0693, -94.6716, return_format=nwswx.formats.JSONLD)
 >>> print(forecast['periods'])
 [{'number': 1, 'name': 'Tonight', 'startTime': '2019-01-13T22:00:00-08:00', 'endTime':
 '2019-01-14T06:00:00-08:00', 'isDaytime': False, 'temperature': 28, 'temperatureUnit':
@@ -51,9 +51,9 @@ to 6 mph.'}, ...
 
 Get an hourly forecast for a point in JSON-LD format:
 ```
->>> import nws_wx_client
->>> nws = nws_wx_client.WxAPI('your@email.com')
->>> forecast = nws.point_hourly_forecast(39.0693, -94.6716, return_format=nws_wx_client.formats.JSONLD)
+>>> import nwswx
+>>> nws = nwswx.WxAPI('your@email.com')
+>>> forecast = nws.point_hourly_forecast(39.0693, -94.6716, return_format=nwswx.formats.JSONLD)
 >>> print(forecast['periods'])
 [{'number': 1, 'name': '', 'startTime': '2019-01-16T19:00:00-08:00', 'endTime':
 '2019-01-16T20:00:00-08:00', 'isDaytime': False, 'temperature': 42,
@@ -64,9 +64,9 @@ Get an hourly forecast for a point in JSON-LD format:
 
 Get active weather alerts for a point in ATOM format:
 ```
->>> import nws_wx_client
->>> nws = nws_wx_client.WxAPI('your@email.com')
->>> alerts = nws.active_alerts({'point': '39.0693,-94.6716'}, return_format=nws_wx_client.formats.ATOM)
+>>> import nwswx
+>>> nws = nwswx.WxAPI('your@email.com')
+>>> alerts = nws.active_alerts({'point': '39.0693,-94.6716'}, return_format=nwswx.formats.ATOM)
 >>> print(alerts)
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:cap="urn:oasis:names:tc:emergency:cap:1.2">

@@ -15,8 +15,8 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'nws_wx_client'
-DESCRIPTION = 'A simple Python 3 client for retrieving data from the NWS Weather Forecast API'
+NAME = 'nwswx'
+DESCRIPTION = 'A Python 3 client for retrieving data from the NWS Weather Forecast API'
 URL = 'https://github.com/stacybrock/nws-wx-client'
 EMAIL = 'kalrnux@gmail.com'
 AUTHOR = 'Stacy Brock'
@@ -102,7 +102,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=['nws_wx_client'],
+    packages=['nwswx'],
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,

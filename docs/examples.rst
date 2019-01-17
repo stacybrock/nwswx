@@ -3,8 +3,8 @@ Examples
 
 Get forecast for a point in GeoJSON format::
 
-  import nws_wx_client
-  nws = nws_wx_client.WxAPI('your@email.com')
+  import nwswx
+  nws = nwswx.WxAPI('your@email.com')
   forecast = nws.point_forecast(39.0693, -94.6716)
   print(forecast)
 
@@ -23,10 +23,10 @@ Output::
 
 Get forecast for a point in JSON-LD format::
 
-  import nws_wx_client
-  nws = nws_wx_client.WxAPI('your@email.com')
+  import nwswx
+  nws = nwswx.WxAPI('your@email.com')
   forecast = nws.point_forecast(39.0693, -94.6716,
-                                return_format=nws_wx_client.formats.JSONLD)
+                                return_format=nwswx.formats.JSONLD)
   print(forecast['periods'])
 
 Output::
@@ -41,10 +41,10 @@ Output::
 
 Get an hourly forecast for a point in JSON-LD format::
 
-  import nws_wx_client
-  nws = nws_wx_client.WxAPI('your@email.com')
+  import nwswx
+  nws = nwswx.WxAPI('your@email.com')
   forecast = nws.point_hourly_forecast(39.0693, -94.6716,
-                                       return_format=nws_wx_client.formats.JSONLD)
+                                       return_format=nwswx.formats.JSONLD)
   print(forecast['periods'])
 
 Output::
@@ -58,10 +58,10 @@ Output::
 
 Get active weather alerts for a point in ATOM format::
 
-  import nws_wx_client
-  nws = nws_wx_client.WxAPI('your@email.com')
+  import nwswx
+  nws = nwswx.WxAPI('your@email.com')
   alerts = nws.active_alerts({'point': '39.0693,-94.6716'},
-                             return_format=nws_wx_client.formats.ATOM)
+                             return_format=nwswx.formats.ATOM)
   print(alerts)
 
 Output::

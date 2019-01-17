@@ -304,11 +304,11 @@ class WxAPI(NWSWxClient):
 
         :strong:`Examples`::
 
-          import nws_wx_client
-          nws = nws_wx_client.WxAPI('test@email.com')
+          import nwswx
+          nws = nwswx.WxAPI('test@email.com')
           nws.alerts({'point': '39.0693,-94.6716'})
           nws.alerts({'point': '39.0693,-94.6716'},
-                     return_format=nws_wx_client.formats.JSONLD)
+                     return_format=nwswx.formats.JSONLD)
 
         :returns: If format is ``JSONLD``, a dict of alerts. Otherwise,
                   a string containing alerts in ATOM format.
@@ -346,11 +346,11 @@ class WxAPI(NWSWxClient):
 
         :strong:`Examples`::
 
-          import nws_wx_client
-          nws = nws_wx_client.WxAPI('test@email.com')
+          import nwswx
+          nws = nwswx.WxAPI('test@email.com')
           nws.active_alerts({'point': '39.0693,-94.6716'})
           nws.active_alerts({'point': '39.0693,-94.6716'},
-                            return_format=nws_wx_client.formats.JSONLD)
+                            return_format=nwswx.formats.JSONLD)
 
         :returns: If format is ``JSONLD``, a dict of alerts. Otherwise, a
                   string containing alerts in ATOM format.
@@ -372,11 +372,11 @@ class WxAPI(NWSWxClient):
 
         :strong:`Examples`::
 
-          import nws_wx_client
-          nws = nws_wx_client.WxAPI('test@email.com')
+          import nwswx
+          nws = nwswx.WxAPI('test@email.com')
           nws.alert('NWS-IDP-PROD-2202530-2064731')
           nws.alert('NWS-IDP-PROD-2202530-2064731',
-                    return_format=nws_wx_client.formats.JSONLD)
+                    return_format=nwswx.formats.JSONLD)
 
         :returns: If format is ``JSONLD``, a dict containing the alert details.
                   If format is ``CAP``, a string containing the alert in CAP

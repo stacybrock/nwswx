@@ -2,6 +2,12 @@
 
 A Python 3 client for retrieving data from the [NWS Weather Forecast API](https://forecast-v3.weather.gov/documentation).
 
+## Installation
+
+```
+pip install nwswx
+```
+
 ## Requirements
 
 * Python 3.4+

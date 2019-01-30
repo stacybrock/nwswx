@@ -126,7 +126,7 @@ class WxAPI(NWSWxClient):
                   a string of gridded data in GeoJSON format.
         """
         return self._get(
-            "/gridpoints/{}/{},{}".format(wfo, grid_x, grid_y),
+            "gridpoints/{}/{},{}".format(wfo, grid_x, grid_y),
             return_format=return_format
         )
 
@@ -163,7 +163,7 @@ class WxAPI(NWSWxClient):
         :returns: If format is ``JSONLD``, a dict of metadata. Otherwise,
                   a string of metadata in GeoJSON format.
         """
-        return self._get("/points/{},{}".format(lat, lon),
+        return self._get("points/{},{}".format(lat, lon),
                          return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD, formats.DWML])
@@ -208,7 +208,7 @@ class WxAPI(NWSWxClient):
                   Otherwise, a string containing forecast data in GeoJSON
                   or DWML format.
         """
-        return self._get("/points/{},{}/forecast".format(lat, lon),
+        return self._get("points/{},{}/forecast".format(lat, lon),
                          return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD])
@@ -256,7 +256,7 @@ class WxAPI(NWSWxClient):
         .. note:: Very long-term forecast periods do not contain the full
                   set of keys listed above.
         """
-        return self._get("/points/{},{}/forecast/hourly".format(lat, lon),
+        return self._get("points/{},{}/forecast/hourly".format(lat, lon),
                          return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD])
@@ -271,7 +271,7 @@ class WxAPI(NWSWxClient):
         :returns: If format is ``JSONLD``, a list of station URLs. Otherwise,
                   a string containing forecast data in GeoJSON format.
         """
-        return self._get("/points/{},{}/stations".format(lat, lon),
+        return self._get("points/{},{}/stations".format(lat, lon),
                          return_format=return_format)
 
     @allowed_formats([formats.JSONLD, formats.ATOM])
@@ -316,7 +316,7 @@ class WxAPI(NWSWxClient):
         if params is None:
             params = {}
 
-        return self._get('/alerts', query=params, return_format=return_format)
+        return self._get('alerts', query=params, return_format=return_format)
 
     @allowed_formats([formats.JSONLD, formats.ATOM])
     def active_alerts(self, params=None, *, return_format=None):
@@ -358,7 +358,7 @@ class WxAPI(NWSWxClient):
         if params is None:
             params = {}
 
-        return self._get('/alerts/active', query=params,
+        return self._get('alerts/active', query=params,
                          return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD, formats.CAP])
@@ -388,5 +388,5 @@ class WxAPI(NWSWxClient):
                   <https://forecast-v3.weather.gov/documentation>`_
                   saying otherwise.
         """
-        return self._get("/alerts/{}".format(alert_id),
+        return self._get("alerts/{}".format(alert_id),
                          return_format=return_format)

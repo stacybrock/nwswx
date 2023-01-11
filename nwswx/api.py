@@ -22,8 +22,8 @@ def allowed_formats(allowed_formats):
             if ('return_format' in kwargs
                     and kwargs['return_format'] not in allowed_formats):
                 raise FormatNotAllowed(
-                    "'{}' format not allowed for this endpoint, expected "
-                    "{}".format(kwargs['return_format'], allowed_formats)
+                    f"'{kwargs['return_format']}' format not allowed for this "
+                    f"endpoint, expected {allowed_formats}"
                 )
             return func(*args, **kwargs)
         return check_allowed_formats
@@ -125,10 +125,8 @@ class WxAPI(NWSWxClient):
         :returns: If format is ``JSONLD``, a dict of gridded data. Otherwise,
                   a string of gridded data in GeoJSON format.
         """
-        return self._get(
-            "gridpoints/{}/{},{}".format(wfo, grid_x, grid_y),
-            return_format=return_format
-        )
+        return self._get(f"gridpoints/{wfo}/{grid_x},{grid_y}",
+                         return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD])
     def point(self, lat, lon, *, return_format=None):
@@ -163,8 +161,7 @@ class WxAPI(NWSWxClient):
         :returns: If format is ``JSONLD``, a dict of metadata. Otherwise,
                   a string of metadata in GeoJSON format.
         """
-        return self._get("points/{},{}".format(lat, lon),
-                         return_format=return_format)
+        return self._get(f"points/{lat},{lon}", return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD, formats.DWML])
     def point_forecast(self, lat, lon, *, return_format=None):
@@ -208,8 +205,10 @@ class WxAPI(NWSWxClient):
                   Otherwise, a string containing forecast data in GeoJSON
                   or DWML format.
         """
-        return self._get("points/{},{}/forecast".format(lat, lon),
-                         return_format=return_format)
+        point = self.point(lat, lon, return_format=formats.JSONLD)
+        endpoint = (f"gridpoints/{point['gridId']}/"
+                    f"{point['gridX']},{point['gridY']}/forecast")
+        return self._get(endpoint, return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD])
     def point_hourly_forecast(self, lat, lon, *, return_format=None):
@@ -256,7 +255,7 @@ class WxAPI(NWSWxClient):
         .. note:: Very long-term forecast periods do not contain the full
                   set of keys listed above.
         """
-        return self._get("points/{},{}/forecast/hourly".format(lat, lon),
+        return self._get(f"points/{lat},{lon}/forecast/hourly",
                          return_format=return_format)
 
     @allowed_formats([formats.GeoJSON, formats.JSONLD])
@@ -271,7 +270,7 @@ class WxAPI(NWSWxClient):
         :returns: If format is ``JSONLD``, a list of station URLs. Otherwise,
                   a string containing forecast data in GeoJSON format.
         """
-        return self._get("points/{},{}/stations".format(lat, lon),
+        return self._get(f"points/{lat},{lon}/stations",
                          return_format=return_format)
 
     @allowed_formats([formats.JSONLD, formats.ATOM])
@@ -388,5 +387,4 @@ class WxAPI(NWSWxClient):
                   <https://forecast-v3.weather.gov/documentation>`_
                   saying otherwise.
         """
-        return self._get("alerts/{}".format(alert_id),
-                         return_format=return_format)
+        return self._get(f"alerts/{alert_id}", return_format=return_format)

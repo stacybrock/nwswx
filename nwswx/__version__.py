@@ -1,6 +1,6 @@
 __title__ = 'nwswx'
 __description__ = 'A Python 3 client for retrieving data from the NWS Weather Forecast API'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 __author__ = 'Stacy Brock'
 __license__ = 'Apache 2.0'
 __copyright__ = 'Copyright 2019 Stacy Brock'

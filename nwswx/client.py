@@ -19,13 +19,12 @@ class NWSWxClient(object):
 
     def _url(self, endpoint):
         """Builds a full URL for the given endpoint"""
-        return "https://{}/{}".format(self._api_host, endpoint)
+        return f"https://{self._api_host}/{endpoint}"
 
     def _get(self, endpoint, *, query=None, return_format=None):
         """Send GET request to NWS Wx Forecast API"""
         headers = {
-            'User-Agent': "{} {} [{}]".format(__title__, __version__,
-                                              self._useragent_id)
+            'User-Agent': f"{__title__} {__version__} [{self._useragent_id}]"
         }
         if return_format is not None:
             headers['Accept'] = return_format

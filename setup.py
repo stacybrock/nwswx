@@ -17,10 +17,10 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'nwswx'
 DESCRIPTION = 'A Python 3 client for retrieving data from the NWS Weather Forecast API'
-URL = 'https://github.com/stacybrock/nws-wx-client'
+URL = 'https://github.com/stacybrock/nwswx'
 EMAIL = 'kalrnux@gmail.com'
 AUTHOR = 'Stacy Brock'
-REQUIRES_PYTHON = '>=3.4.0'
+REQUIRES_PYTHON = '>=3.6.0'
 VERSION = None
 
 # What packages are required for this module to be executed?
@@ -114,10 +114,12 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
     # $ setup.py publish support.
     cmdclass={

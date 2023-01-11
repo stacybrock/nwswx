@@ -10,7 +10,7 @@ pip install nwswx
 
 ## Requirements
 
-* Python 3.4+
+* Python 3.6+
 * [Requests](http://docs.python-requests.org)
 
 ### Package Build Requirements
